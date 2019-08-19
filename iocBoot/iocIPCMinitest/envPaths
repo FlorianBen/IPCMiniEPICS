@@ -1,0 +1,5 @@
+epicsEnvSet("IOC","iocIPCMinitest")
+epicsEnvSet("TOP","/local/home/fbenedet/Documents/EPICS/app/IPCMini")
+epicsEnvSet("ASYN","/local/home/fbenedet/Documents/EPICS/support/asyn-4.33")
+epicsEnvSet("STREAM","/local/home/fbenedet/Documents/EPICS/app/IPCMini/StreamDevice")
+epicsEnvSet("EPICS_BASE","/local/home/fbenedet/Documents/EPICS/base")

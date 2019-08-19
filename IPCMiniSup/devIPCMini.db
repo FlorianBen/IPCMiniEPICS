@@ -1,0 +1,113 @@
+
+
+record(ao, "$(P)$(R)IprotectCH1") {
+    field(DESC, "I Protect CH1")
+    field(DTYP, "stream")
+    field(OUT,  "@devIPCMini.proto setIprotect() $(PORT) $(A)")
+    field(EGU, "uA")
+}
+
+record(ai, "$(P)$(R)IprotectCH1_RBV") {
+    field(DESC, "I Protect CH1")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getIprotect() $(PORT) $(A)")
+    field(SCAN, "1 second")
+    field(EGU, "uA")
+}
+
+record(ao, "$(P)$(R)SetpointCH1") {
+    field(DESC, "I Protect CH1")
+    field(DTYP, "stream")
+    field(OUT,  "@devIPCMini.proto setSetPoint() $(PORT) $(A)")
+    field(EGU, "")
+}
+
+record(ai, "$(P)$(R)SetpointCH1_RBV") {
+    field(DESC, "I Protect CH1")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getSetPoint() $(PORT) $(A)")
+    field(SCAN, "1 second")
+    field(EGU, "")
+    field (PREC, "2")
+}
+
+record(ai, "$(P)$(R)TemperaturePower") {
+    field(DESC, "I Protect CH1")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getTemperaturePower() $(PORT) $(A)")
+    field(SCAN, "1 second")
+    field(EGU, "°C")
+}
+
+record(ai, "$(P)$(R)TemperatureController") {
+    field(DESC, "I Protect CH1")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getTemperatureController() $(PORT) $(A)")
+    field(SCAN, "1 second")
+    field(EGU, "°C")
+}
+
+record(bi, "$(P)$(R)StatusSetpoint") {
+    field(DESC, "Status Set point")
+    field(DTYP, "stream")
+    field(VAL,  "0")
+    field(ONAM, "ON")
+    field(ZNAM, "OFF")
+    field(INP,  "@devIPCMini.proto getStatuspoint() $(PORT) $(A)")
+}
+
+record(ai, "$(P)$(R)VoltageCH1") {
+    field(DESC, "Voltage CH1")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getVoltage() $(PORT) $(A)")
+    field(SCAN, "1 second")
+    field(EGU, "V")
+    field (LOPR, "0")
+    field (HOPR, "7000")
+}
+
+record(ai, "$(P)$(R)CurrentCH1") {
+    field(DESC, "Current CH1")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getI() $(PORT) $(A)")
+    field(SCAN, "1 second")
+    field(EGU, "uA")
+    field (LOPR, "1")
+    field (HOPR, "10000")
+}
+
+record(ai, "$(P)$(R)PressureCH1") {
+    field(DESC, "Pressure CH1")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getPressure() $(PORT) $(A)")
+    field(SCAN, "1 second")
+    field(EGU, "mbar")
+    field (LOPR, "1e-10")
+    field (HOPR, "1e-3")
+}
+
+record(waveform, "$(P)$(R)Label2") {
+  field(DESC, "Operating mode")
+  field(DTYP, "stream")
+  field(NELM, "10")
+  field(FTVL, "CHAR")
+  field(INP,  "@devIPCMini.proto getLabel2 $(PORT)")
+  field(PINI, "YES")
+  field(SCAN, "1 second")
+}
+
+record(stringout, "$(P)$(R)Label")
+{
+    field(DESC, "SCPI identification string")
+    field(DTYP, "stream")
+    field(OUT,  "@devIPCMini.proto setLabel() $(PORT) $(A)")
+}
+
+record(stringin, "$(P)$(R)Label_RBV")
+{
+    field(DESC, "SCPI identification string")
+    field(DTYP, "stream")
+    field(INP,  "@devIPCMini.proto getLabel() $(PORT) $(A)")
+    field(PINI, "YES")
+    field(SCAN, "1 second")
+}

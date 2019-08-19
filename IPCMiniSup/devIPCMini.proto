@@ -1,0 +1,86 @@
+#Terminator = CR LF;
+
+RCOM =  0x30;
+WCOM =  0x31;
+
+getIDN {
+    out "*IDN?";
+    in "%\$1[^\r\n]";
+    ExtraInput = Ignore;
+}
+
+cmd {
+    out "\$1";
+}
+
+setD {
+    out "\$1 %d";
+}
+
+getD {
+    out "\$1?";
+    in "%d";
+    ExtraInput = Ignore;
+}
+
+setIprotect {
+
+}
+
+getIprotect{
+    out STX,0x00,"614",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"614",$RCOM,"%d",ETX,"%01<xor>";
+}
+
+setSetPoint {
+
+}
+
+getSetPoint{
+    out STX,0x00,"615",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"615",$RCOM,"%e",ETX,"%01<xor>";
+}
+
+getTemperaturePower{
+    out STX,0x00,"800",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"800",$RCOM,"%d",ETX,"%01<xor>";
+}
+
+getTemperatureController{
+    out STX,0x00,"801",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"801",$RCOM,"%d",ETX,"%01<xor>";
+}
+
+getStatuspoint {
+    out STX,0x00,"804",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"804",$RCOM,"%d",ETX,"%01<xor>";
+}
+
+getVoltage{
+    out STX,0x00,"810",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"810",$RCOM,"%d",ETX,"%01<xor>";
+}
+
+getI {
+    out STX,0x00,"811",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"811",$RCOM,"%E",ETX,"%01<xor>";
+}
+
+getPressure {
+    out STX,0x00,"812",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"812",$RCOM,"%E",ETX,"%01<xor>";
+}
+
+setLabel {
+}
+
+getLabel {
+  out STX,0x00,"890",$RCOM,ETX,"%01<xor>";
+  in "%s","%01<xor>"
+  #in STX,0x00,"890",$RCOM,"%[\_A-Z]",ETX,"%01<xor>";
+}
+
+getLabel2 {
+  out STX,0x00,"890",$RCOM,ETX,"%01<xor>";
+  in STX,0x00,"890",$RCOM,"%10c",ETX,"%01<xor>";
+}

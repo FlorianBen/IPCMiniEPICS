@@ -1,0 +1,16 @@
+# Ignore EPICS build output
+bin/*
+lib/*
+include/*
+db/*
+dbd/*
+*.o
+*.a
+*.so
+**/O.*
+
+# Ignore CSS files
+.project
+
+# Temp
+opi/boy/* 
