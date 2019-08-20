@@ -1,26 +1,106 @@
-#Terminator = CR LF;
-
 RCOM =  0x30;
 WCOM =  0x31;
 
-getIDN {
-    out "*IDN?";
-    in "%\$1[^\r\n]";
-    ExtraInput = Ignore;
+setMode {
+  out STX,0x00,"008",$WCOM,"%6d",ETX,"%01<xor>";
+  @init {
+    out STX,0x00,"008",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"008",$RCOM,"%6d",ETX,"%01<xor>";
+  }  
 }
 
-cmd {
-    out "\$1";
+getMode {
+    out STX,0x00,"008",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"008",$RCOM,"%6d",ETX,"%01<xor>";
 }
 
-setD {
-    out "\$1 %d";
+setHV {
+  out STX,0x00,"011",$WCOM,"%6d",ETX,"%01<xor>";
+  @init {
+    out STX,0x00,"011",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"011",$RCOM,"%6d",ETX,"%01<xor>";
+  }  
 }
 
-getD {
-    out "\$1?";
-    in "%d";
-    ExtraInput = Ignore;
+getHV {
+    out STX,0x00,"011",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"011",$RCOM,"%6d",ETX,"%01<xor>";
+}
+
+setBaud {
+  out STX,0x00,"108",$WCOM,"%6d",ETX,"%01<xor>";
+  @init {
+    out STX,0x00,"108",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"108",$RCOM,"%6d",ETX,"%01<xor>";
+  }  
+}
+
+getBaud {
+    out STX,0x00,"108",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"108",$RCOM,"%6d",ETX,"%01<xor>";
+}
+
+getStatut {
+    out STX,0x00,"205",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"205",$RCOM,"%6d",ETX,"%01<xor>";
+}
+
+getErrorCode {
+    out STX,0x00,"206",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"206",$RCOM,"%6d",ETX,"%01<xor>";
+}
+
+getModel {
+  ExtraInput = Ignore;
+  InTerminator = ETX;
+  out STX,0x00,"319",$RCOM,ETX,"%01<xor>";
+  in  STX,0x00,"319",$RCOM,"%s";
+}
+
+getModelSN {
+  ExtraInput = Ignore;
+  InTerminator = ETX;
+  out STX,0x00,"323",$RCOM,ETX,"%01<xor>";
+  in  STX,0x00,"323",$RCOM,"%s";
+}
+
+setSerialAddr {
+  out STX,0x00,"503",$WCOM,"%6d",ETX,"%01<xor>";
+  @init {
+    out STX,0x00,"503",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"503",$RCOM,"%6d",ETX,"%01<xor>";
+  }  
+}
+
+getSerialAddr {
+    out STX,0x00,"503",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"503",$RCOM,"%6d",ETX,"%01<xor>";
+}
+
+setSerialType {
+  out STX,0x00,"504",$WCOM,"%1d",ETX,"%01<xor>";
+  @init {
+    out STX,0x00,"504",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"504",$RCOM,"%1d",ETX,"%01<xor>";
+  }  
+}
+
+getSerialType {
+    out STX,0x00,"504",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"504",$RCOM,"%1d",ETX,"%01<xor>";
+}
+
+setUnit {
+  out STX,0x00,"600",$WCOM,"%6d",ETX,"%01<xor>";
+  @init {
+    out STX,0x00,"600",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"600",$RCOM,"%6d",ETX,"%01<xor>";
+  }  
+}
+
+getUnit {
+    out STX,0x00,"600",$RCOM,ETX,"%01<xor>";
+    in  STX,0x00,"600",$RCOM,"%6d",ETX,"%01<xor>";
 }
 
 setIprotect {
@@ -75,9 +155,10 @@ setLabel {
 }
 
 getLabel {
+  ExtraInput = Ignore;
+  InTerminator = ETX;
   out STX,0x00,"890",$RCOM,ETX,"%01<xor>";
-  in "%s","%01<xor>"
-  #in STX,0x00,"890",$RCOM,"%[\_A-Z]",ETX,"%01<xor>";
+  in STX,0x00,"890",$RCOM,"%10c";
 }
 
 getLabel2 {

@@ -1,89 +1,237 @@
+record(mbbo,"$(P)$(R)Mode"){
+  field(DESC, "Operating mode")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setMode() $(PORT) $(A)")
+  field(ZRST, "Serial")
+  field(ONST, "Remote")
+  field(TWST, "Local")
+  field(THST, "LAN")
+}
 
+record(mbbi,"$(P)$(R)Mode_RBV"){
+  field(DESC, "Operating mode RBV")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getMode() $(PORT) $(A)")
+  field(ZRST, "Serial")
+  field(ONST, "Remote")
+  field(TWST, "Local")
+  field(THST, "LAN")
+  field(SCAN, "2 second")
+}
+
+record(bo,"$(P)$(R)HV"){
+  field(DESC, "High voltage")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setHV() $(PORT) $(A)")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+}
+
+record(bi,"$(P)$(R)HV_RBV"){
+  field(DESC, "High voltage RBV")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getHV() $(PORT) $(A)")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(SCAN, "2 second")
+}
+
+record(mbbo,"$(P)$(R)Baud"){
+  field(DESC, "Baud rate")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setBaud() $(PORT) $(A)")
+  field(ONST, "1200")
+  field(TWST, "2400")
+  field(THST, "4800")
+  field(FRST, "9600")
+}
+
+record(mbbi,"$(P)$(R)Baud_RBV"){
+  field(DESC, "Baud rate RBV")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getBaud() $(PORT) $(A)")
+  field(ONST, "1200")
+  field(TWST, "2400")
+  field(THST, "4800")
+  field(FRST, "9600")
+  field(SCAN, "2 second")
+}
+
+record(ai, "$(P)$(R)Satus") {
+  field(DESC, "Controller status")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getStatut() $(PORT) $(A)")
+  field(SCAN, "1 second")
+}
+
+record(ai, "$(P)$(R)ErrorCode") {
+  field(DESC, "Controller error code")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getErrorCode() $(PORT) $(A)")
+  field(SCAN, "1 second")
+}
+
+record(stringin, "$(P)$(R)Model") {
+  field(DESC, "Controller model")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getModel $(PORT)")
+  field(PINI, "1")
+  field(SCAN, "10 second")
+}
+
+record(stringin, "$(P)$(R)ModelSN") {
+  field(DESC, "Controller model")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getModelSN $(PORT)")
+  field(PINI, "1")
+  field(SCAN, "10 second")
+}
+
+record(ao, "$(P)$(R)SerialAddr") {
+  field(DESC, "Serial interface adress")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setSerialAddr() $(PORT) $(A)")
+  field(DRVL, "0")
+  field(DRVH, "31")
+}
+
+record(ai, "$(P)$(R)SerialAddr_RBV") {
+  field(DESC, "Serial interface adress RBV")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getSerialAddr() $(PORT) $(A)")
+  field(SCAN, "5 second")
+}
+
+record(bo,"$(P)$(R)SerialType"){
+  field(DESC, "Serial interface")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setSerialType() $(PORT) $(A)")
+  field(ZNAM, "RS232")
+  field(ONAM, "RS485")
+}
+
+record(bi,"$(P)$(R)SerialType_RBV"){
+  field(DESC, "Serial interface RBV")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getSerialType() $(PORT) $(A)")
+  field(ZNAM, "RS232")
+  field(ONAM, "RS485")
+  field(SCAN, "5 second")
+}
+
+record(mbbo,"$(P)$(R)Unit"){
+  field(DESC, "Pressure unit")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setUnit() $(PORT) $(A)")
+  field(ZRST, "Torr")
+  field(ONST, "mbar")
+  field(TWST, "Pa")
+}
+
+record(mbbi,"$(P)$(R)Unit_RBV"){
+  field(DESC, "Pressure unit RBV")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getUnit() $(PORT) $(A)")
+  field(ZRST, "Torr")
+  field(ONST, "mbar")
+  field(TWST, "Pa")
+  field(FLNK, "$(P)$(R)PUnit_Temp")
+  field(SCAN, "5 second")
+}
+
+record(stringout, "$(P)$(R)PUnit_Temp")
+{
+  field(DESC, "Temp pressure unit")
+  field(OMSL, "closed_loop")
+  field(DOL, "$(P)$(R)Unit_RBV")
+  field(OUT, "$(P)$(R)PressureCH1.EGU PP")
+  field(SCAN, "1 second")
+}
 
 record(ao, "$(P)$(R)IprotectCH1") {
-    field(DESC, "I Protect CH1")
-    field(DTYP, "stream")
-    field(OUT,  "@devIPCMini.proto setIprotect() $(PORT) $(A)")
-    field(EGU, "uA")
+  field(DESC, "I Protect CH1")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setIprotect() $(PORT) $(A)")
+  field(EGU, "uA")
 }
 
 record(ai, "$(P)$(R)IprotectCH1_RBV") {
-    field(DESC, "I Protect CH1")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getIprotect() $(PORT) $(A)")
-    field(SCAN, "1 second")
-    field(EGU, "uA")
+  field(DESC, "I Protect CH1")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getIprotect() $(PORT) $(A)")
+  field(SCAN, "1 second")
+  field(EGU, "uA")
 }
 
 record(ao, "$(P)$(R)SetpointCH1") {
-    field(DESC, "I Protect CH1")
-    field(DTYP, "stream")
-    field(OUT,  "@devIPCMini.proto setSetPoint() $(PORT) $(A)")
-    field(EGU, "")
+  field(DESC, "I Protect CH1")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setSetPoint() $(PORT) $(A)")
+  field(EGU, "")
 }
 
 record(ai, "$(P)$(R)SetpointCH1_RBV") {
-    field(DESC, "I Protect CH1")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getSetPoint() $(PORT) $(A)")
-    field(SCAN, "1 second")
-    field(EGU, "")
-    field (PREC, "2")
+  field(DESC, "I Protect CH1")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getSetPoint() $(PORT) $(A)")
+  field(SCAN, "1 second")
+  field(EGU, "")
+  field (PREC, "2")
 }
 
 record(ai, "$(P)$(R)TemperaturePower") {
-    field(DESC, "I Protect CH1")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getTemperaturePower() $(PORT) $(A)")
-    field(SCAN, "1 second")
-    field(EGU, "°C")
+  field(DESC, "I Protect CH1")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getTemperaturePower() $(PORT) $(A)")
+  field(SCAN, "1 second")
+  field(EGU, "°C")
 }
 
 record(ai, "$(P)$(R)TemperatureController") {
-    field(DESC, "I Protect CH1")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getTemperatureController() $(PORT) $(A)")
-    field(SCAN, "1 second")
-    field(EGU, "°C")
+  field(DESC, "I Protect CH1")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getTemperatureController() $(PORT) $(A)")
+  field(SCAN, "1 second")
+  field(EGU, "°C")
 }
 
 record(bi, "$(P)$(R)StatusSetpoint") {
-    field(DESC, "Status Set point")
-    field(DTYP, "stream")
-    field(VAL,  "0")
-    field(ONAM, "ON")
-    field(ZNAM, "OFF")
-    field(INP,  "@devIPCMini.proto getStatuspoint() $(PORT) $(A)")
+  field(DESC, "Status Set point")
+  field(DTYP, "stream")
+  field(VAL, "0")
+  field(ONAM, "ON")
+  field(ZNAM, "OFF")
+  field(INP, "@devIPCMini.proto getStatuspoint() $(PORT) $(A)")
 }
 
 record(ai, "$(P)$(R)VoltageCH1") {
-    field(DESC, "Voltage CH1")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getVoltage() $(PORT) $(A)")
-    field(SCAN, "1 second")
-    field(EGU, "V")
-    field (LOPR, "0")
-    field (HOPR, "7000")
+  field(DESC, "Voltage CH1")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getVoltage() $(PORT) $(A)")
+  field(SCAN, "1 second")
+  field(EGU, "V")
+  field (LOPR, "0")
+  field (HOPR, "7000")
 }
 
 record(ai, "$(P)$(R)CurrentCH1") {
-    field(DESC, "Current CH1")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getI() $(PORT) $(A)")
-    field(SCAN, "1 second")
-    field(EGU, "uA")
-    field (LOPR, "1")
-    field (HOPR, "10000")
+  field(DESC, "Current CH1")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getI() $(PORT) $(A)")
+  field(SCAN, "1 second")
+  field(EGU, "uA")
+  field (LOPR, "1")
+  field (HOPR, "10000")
 }
 
 record(ai, "$(P)$(R)PressureCH1") {
-    field(DESC, "Pressure CH1")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getPressure() $(PORT) $(A)")
-    field(SCAN, "1 second")
-    field(EGU, "mbar")
-    field (LOPR, "1e-10")
-    field (HOPR, "1e-3")
+  field(DESC, "Pressure CH1")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getPressure() $(PORT) $(A)")
+  field(SCAN, "1 second")
+  field(EGU, "mbar")
+  field (LOPR, "1e-10")
+  field (HOPR, "1e-3")
 }
 
 record(waveform, "$(P)$(R)Label2") {
@@ -91,23 +239,23 @@ record(waveform, "$(P)$(R)Label2") {
   field(DTYP, "stream")
   field(NELM, "10")
   field(FTVL, "CHAR")
-  field(INP,  "@devIPCMini.proto getLabel2 $(PORT)")
+  field(INP, "@devIPCMini.proto getLabel2 $(PORT)")
   field(PINI, "YES")
   field(SCAN, "1 second")
 }
 
 record(stringout, "$(P)$(R)Label")
 {
-    field(DESC, "SCPI identification string")
-    field(DTYP, "stream")
-    field(OUT,  "@devIPCMini.proto setLabel() $(PORT) $(A)")
+  field(DESC, "SCPI identification string")
+  field(DTYP, "stream")
+  field(OUT, "@devIPCMini.proto setLabel() $(PORT) $(A)")
 }
 
 record(stringin, "$(P)$(R)Label_RBV")
 {
-    field(DESC, "SCPI identification string")
-    field(DTYP, "stream")
-    field(INP,  "@devIPCMini.proto getLabel() $(PORT) $(A)")
-    field(PINI, "YES")
-    field(SCAN, "1 second")
+  field(DESC, "SCPI identification string")
+  field(DTYP, "stream")
+  field(INP, "@devIPCMini.proto getLabel() $(PORT) $(A)")
+  field(PINI, "YES")
+  field(SCAN, "1 second")
 }
